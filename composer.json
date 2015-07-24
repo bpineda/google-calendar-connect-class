@@ -1,0 +1,26 @@
+{
+  "name": "bpineda/google-calendar-connect-class",
+  "type": "library",
+  "description": "Implementation to connect to a google calendar class",
+  "keywords": ["google", "calendar", "client"],
+  "homepage": "http://bernardopineda.mx/",
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Bernardo Pineda",
+      "email": "_@bernardopineda.mx",
+      "homepage": "https://github.com/bpineda"
+    }
+  ],
+  "require": {
+    "php": ">=5.5.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "~4.0"
+  },
+  "autoload": {
+    "classmap": [
+      "src/"
+    ]
+  }
+}
