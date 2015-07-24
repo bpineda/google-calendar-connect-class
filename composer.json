@@ -1,7 +1,7 @@
 {
   "name": "bpineda/google-calendar-connect-class",
   "type": "library",
-  "description": "Implementation to connect to a google calendar class",
+  "description": "Class implementation to connect to a google calendar",
   "keywords": ["google", "calendar", "client"],
   "homepage": "http://bernardopineda.mx/",
   "license": "MIT",
