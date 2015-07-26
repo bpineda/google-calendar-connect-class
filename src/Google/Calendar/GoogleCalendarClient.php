@@ -15,7 +15,7 @@ class GoogleCalendarClient extends \Google_Client
     {
         $this->google_client = parent::__construct();
         $this->google_client =
-        $this->scopes = implode(' ', array( Google_Service_Calendar::CALENDAR_READONLY));
+        $this->scopes = implode(' ', array( \Google_Service_Calendar::CALENDAR_READONLY));
     }
 
     public function config()
