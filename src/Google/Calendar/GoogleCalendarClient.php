@@ -33,6 +33,8 @@ class GoogleCalendarClient extends \Google_Client
         $this->google_client->setScopes($this->scopes);
         $this->google_client->setAuthConfigFile(self::CLIENT_SECRET_PATH);
         $this->google_client->setAccessType(self::CLIENT_ACCESS_TYPE);
+
+        $credential_file = realpath(self::CREDENTIALS_PATH);
     }
 
     public function getCalendarEvents()
