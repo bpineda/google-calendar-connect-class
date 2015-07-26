@@ -5,7 +5,7 @@ require_once('vendor/google/apiclient/src/Google/autoload.php');
 class GoogleCalendarClient extends \Google_Client
 {
 
-    const APPLICATION_NAME = 'Google Calendar API Quickstart';
+    const APPLICATION_NAME = 'Google Calendar Class API Test';
     const CREDENTIALS_PATH = './credentials/calendar-api-quickstart.json';
     const CLIENT_SECRET_PATH = 'client_secret.json';
     private $google_client;
