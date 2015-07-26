@@ -42,8 +42,7 @@ class GoogleCalendarClient extends \Google_Client
         } else {
             // Request authorization from the user.
             $authUrl = $this->createAuthUrl();
-            //printf("Open the following link in your browser:\n%s\n", $authUrl);
-            $this->error_message = 'App not verified. Open the following url: ' . $authUrl;
+            $this->error_message = 'App not verified. Open the following url: <a href="' . $authUrl . '">Verify App</a>"';
             return false;
 
         }
