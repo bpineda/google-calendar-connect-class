@@ -72,19 +72,24 @@ class GoogleCalendarClient extends \Google_Client
         return $this->app_message;
     }
 
-    private function saveCredentials($verification_code)
+    private function verifyCode($verification_code)
     {
         $authCode = $verification_code;
 
         // Exchange authorization code for an access token.
-        $accessToken = $this->authenticate($authCode);
+        return $this->authenticate($authCode);
+
+    }
+
+    private function saveCredentials($access_token)
+    {
 
         // Store the credentials to disk.
-        $credential_file = realpath(self::CREDENTIALS_PATH);
+        $credential_file = self::CREDENTIALS_PATH;
         if(!file_exists(dirname($credential_file))) {
             mkdir(dirname($credential_file), 0700, true);
         }
-        file_put_contents($credential_file, $accessToken);
+        file_put_contents($credential_file, $access_token);
         $this->app_message = 'Credentials saved to ' . $credential_file;
         return true;
     }
