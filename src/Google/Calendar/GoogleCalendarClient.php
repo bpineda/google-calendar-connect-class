@@ -12,6 +12,7 @@ class GoogleCalendarClient extends \Google_Client
     private $google_client;
     private $scopes;
     private $error_message = '';
+    private $app_message = '';
 
     function __construct()
     {
@@ -28,7 +29,7 @@ class GoogleCalendarClient extends \Google_Client
         $this->scopes = implode(' ', array( \Google_Service_Calendar::CALENDAR));
     }
 
-    public function config()
+    public function config($verification_code = null)
     {
         $this->setApplicationName(self::APPLICATION_NAME);
         $this->setScopes($this->scopes);
@@ -40,10 +41,16 @@ class GoogleCalendarClient extends \Google_Client
         if (file_exists($credential_file)) {
             $accessToken = file_get_contents($credential_file);
         } else {
-            // Request authorization from the user.
-            $authUrl = $this->createAuthUrl();
-            $this->error_message = 'App not verified. Open the following url: <a href="' . $authUrl . '">Verify App</a>"';
-            return false;
+
+            if(empty($verification_code))
+            {
+                $authUrl = $this->createAuthUrl();
+                $this->error_message = 'App not verified. Open the following url: <a href="' . $authUrl . '">Verify App</a>"';
+                return false;
+            }
+
+            $this->saveCredentials($verification_code);
+
 
         }
         $this->setAccessToken($accessToken);
@@ -60,7 +67,12 @@ class GoogleCalendarClient extends \Google_Client
         return $this->error_message;
     }
 
-    public function saveCredentials($verification_code)
+    public function getAppMessage()
+    {
+        return $this->app_message;
+    }
+
+    private function saveCredentials($verification_code)
     {
         $authCode = $verification_code;
 
@@ -68,11 +80,13 @@ class GoogleCalendarClient extends \Google_Client
         $accessToken = $this->authenticate($authCode);
 
         // Store the credentials to disk.
+        $credential_file = realpath(self::CREDENTIALS_PATH);
         if(!file_exists(dirname($credential_file))) {
             mkdir(dirname($credential_file), 0700, true);
         }
         file_put_contents($credential_file, $accessToken);
-        printf("Credentials saved to %s\n", $credential_file);
+        $this->app_message = 'Credentials saved to ' . $credential_file;
+        return true;
     }
 
     public function getCalendarEvents()
