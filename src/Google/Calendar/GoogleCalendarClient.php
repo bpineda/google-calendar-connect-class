@@ -14,7 +14,7 @@ class GoogleCalendarClient extends \Google_Client
 
     function __construct()
     {
-        //$this->google_client = parent::__construct();
+        parent::__construct();
         /**
          * Google calendar service may have the options:
          * Google_Service_Calendar::CALENDAR_READONLY
