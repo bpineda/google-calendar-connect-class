@@ -8,6 +8,7 @@ class GoogleCalendarClient extends \Google_Client
     const APPLICATION_NAME = 'Google Calendar Class API Test';
     const CREDENTIALS_PATH = './credentials/calendar-api-quickstart.json';
     const CLIENT_SECRET_PATH = 'client_secret.json';
+    const CLIENT_ACCESS_TYPE = 'offline';
     private $google_client;
     private $scopes;
 
@@ -28,7 +29,10 @@ class GoogleCalendarClient extends \Google_Client
 
     public function config()
     {
-
+        $this->google_client->setApplicationName(self::APPLICATION_NAME);
+        $this->google_client->setScopes($this->scopes);
+        $this->google_client->setAuthConfigFile(self::CLIENT_SECRET_PATH);
+        $this->google_client->setAccessType(self::CLIENT_ACCESS_TYPE);
     }
 
     public function getCalendarEvents()
