@@ -14,7 +14,7 @@ class GoogleCalendarClient extends \Google_Client
 
     function __construct()
     {
-        $this->google_client = parent::__construct();
+        //$this->google_client = parent::__construct();
         /**
          * Google calendar service may have the options:
          * Google_Service_Calendar::CALENDAR_READONLY
@@ -29,10 +29,10 @@ class GoogleCalendarClient extends \Google_Client
 
     public function config()
     {
-        $this->google_client->setApplicationName(self::APPLICATION_NAME);
-        $this->google_client->setScopes($this->scopes);
-        $this->google_client->setAuthConfigFile(self::CLIENT_SECRET_PATH);
-        $this->google_client->setAccessType(self::CLIENT_ACCESS_TYPE);
+        $this->setApplicationName(self::APPLICATION_NAME);
+        $this->setScopes($this->scopes);
+        $this->setAuthConfigFile(self::CLIENT_SECRET_PATH);
+        $this->setAccessType(self::CLIENT_ACCESS_TYPE);
 
         $credential_file = realpath(self::CREDENTIALS_PATH);
     }
