@@ -1,20 +1,20 @@
 <?php
 
 namespace Google\Calendar;
-
-class GoogleCalendarClient
+require_once('vendor/google/apiclient/src/Google/autoload.php');
+class GoogleCalendarClient extends \Google_Client
 {
 
     private $google_client;
 
-    function __construct($google_client)
+    function __construct()
     {
-        $this->google_client = $google_client;
+
     }
 
     public function config()
     {
-        
+
     }
 
     public function getCalendarEvents()
