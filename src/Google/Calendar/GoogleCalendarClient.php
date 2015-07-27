@@ -13,6 +13,7 @@ class GoogleCalendarClient extends \Google_Client
     private $scopes;
     private $error_message = '';
     private $app_message = '';
+    private $google_service_calendar;
 
     function __construct()
     {
@@ -27,6 +28,7 @@ class GoogleCalendarClient extends \Google_Client
          */
 
         $this->scopes = implode(' ', array( \Google_Service_Calendar::CALENDAR));
+        $this->google_service_calendar = new Google_Service_Calendar();
     }
 
     public function config($verification_code = null)
