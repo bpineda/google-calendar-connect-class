@@ -11,7 +11,6 @@ class GoogleCalendarClient extends \Google_Client
     const CLIENT_ACCESS_TYPE = 'offline';
     const CALENDAR_ID = 'bernardopineda.mx_ro49eep2p25rrhe2t0k4jflros@group.calendar.google.com';
     const TIME_ZONE = 'America/Mexico_City';
-    private $google_client;
     private $scopes;
     private $error_message = '';
     private $app_message = '';
@@ -62,7 +61,6 @@ class GoogleCalendarClient extends \Google_Client
 
         }
 
-        //Set access token
         $this->setAccessToken($access_token);
 
         // Refresh the token if it's expired.
@@ -166,23 +164,23 @@ class GoogleCalendarClient extends \Google_Client
     /**
      * We add an event to the calendar. The array that we pass to the method should be like this:
      * array(
-        'summary' => 'Event name',
-        'location' => 'Event address',
-        'description' => 'Event description',
-        'start' => '2015-05-28T09:00:00',
-        'end' => '2015-05-28T17:00:00-07:00',
-        'attendees' => array(
-                                array('email' => 'attendee1@example.com'),
-                                array('email' => 'attendee2@example.com'),
-        ),
-        'reminders' => array(
-            'useDefault' => FALSE,
-            'overrides' => array(
-                array('method' => 'email', 'minutes' => 24 * 60),
-                array('method' => 'popup', 'minutes' => 10),
-        ),
-        ),
-        )
+     *   'summary' => 'Event name',
+     *   'location' => 'Event address',
+     *   'description' => 'Event description',
+     *   'start' => '2015-05-28T09:00:00',
+     *   'end' => '2015-05-28T17:00:00-07:00',
+     *   'attendees' => array(
+     *                           array('email' => 'attendee1@example.com'),
+     *                           array('email' => 'attendee2@example.com'),
+     *   ),
+     *   'reminders' => array(
+     *       'useDefault' => FALSE,
+     *       'overrides' => array(
+     *           array('method' => 'email', 'minutes' => 24 * 60),
+     *           array('method' => 'popup', 'minutes' => 10),
+     *   ),
+     *   ),
+     *   )
      * @param $event_attributes
      * @return Google_Service_Calendar_Event
      */
@@ -198,6 +196,9 @@ class GoogleCalendarClient extends \Google_Client
 
     }
 
+    /**
+     * If an attribute is in the array but it's not userful, we discard it
+     */
     private function discardEventAttributes()
     {
         $this->event_attributes_ = [];
@@ -211,6 +212,12 @@ class GoogleCalendarClient extends \Google_Client
 
     }
 
+    /**
+     * We set the date attributes as an array so the user only has to input the date_time value
+     * @param $attribute_name
+     * @param $attribute_value
+     * @return array
+     */
     private function setDateAttributes($attribute_name, $attribute_value)
     {
         if(in_array($attribute_name,$this->date_attribute_names))
