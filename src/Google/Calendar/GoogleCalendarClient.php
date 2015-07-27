@@ -9,7 +9,7 @@ class GoogleCalendarClient extends \Google_Client
     const CREDENTIALS_PATH = './credentials/calendar-api-access-token.json';
     const CLIENT_SECRET_PATH = 'client_secret.json';
     const CLIENT_ACCESS_TYPE = 'offline';
-    const CALENDAR_ID = '';
+    const CALENDAR_ID = 'bernardopineda.mx_ro49eep2p25rrhe2t0k4jflros@group.calendar.google.com';
     const TIME_ZONE = 'America/Mexico_City';
     private $google_client;
     private $scopes;
