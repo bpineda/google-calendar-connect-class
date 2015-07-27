@@ -169,12 +169,8 @@ class GoogleCalendarClient extends \Google_Client
         'summary' => 'Event name',
         'location' => 'Event address',
         'description' => 'Event description',
-        'start' => array(
-                        'dateTime' => '2015-05-28T09:00:00'
-                    ),
-        'end' => array(
-                        'dateTime' => '2015-05-28T17:00:00-07:00'
-                    ),
+        'start' => '2015-05-28T09:00:00',
+        'end' => '2015-05-28T17:00:00-07:00',
         'attendees' => array(
                                 array('email' => 'attendee1@example.com'),
                                 array('email' => 'attendee2@example.com'),
