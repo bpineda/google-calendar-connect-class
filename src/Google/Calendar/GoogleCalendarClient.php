@@ -116,6 +116,40 @@ class GoogleCalendarClient extends \Google_Client
             echo $this->getErrorMessage();
             return false;
         }
+
+        $optParams = array(
+            'maxResults' => 10,
+            'orderBy' => 'startTime',
+            'singleEvents' => TRUE,
+            'timeMin' => date('c'),
+        );
+
+        $results = $this->google_service_calendar->events->listEvents(self::CALENDAR_ID, $optParams);
+
+        if (count($results->getItems()) == 0) {
+            return array();
+        }
+
+        return $this->createEventsArray($results);
+
+    }
+
+    private function createEventsArray($events_result)
+    {
+        $events_array = [];
+
+        foreach ($events_result->getItems() as $event) {
+            $start = $event->start->dateTime;
+            $end = $event->end->dateTime;
+            if (empty($start)) {
+                $start = $event->start->date;
+            }
+            if (empty($end)) {
+                $end = $event->end->date;
+            }
+            $events_array[] = ['start' => $start, 'end' => $end, 'summary' => $event->getSummary()];
+        }
+        return $events_array;
     }
 
     public function addCalendarEvent()
