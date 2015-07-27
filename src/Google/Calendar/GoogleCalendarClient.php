@@ -39,7 +39,7 @@ class GoogleCalendarClient extends \Google_Client
         $credential_file = realpath(self::CREDENTIALS_PATH);
 
         if (file_exists($credential_file)) {
-            $accessToken = file_get_contents($credential_file);
+            $access_token = file_get_contents($credential_file);
         } else {
 
             if(empty($verification_code))
@@ -49,11 +49,13 @@ class GoogleCalendarClient extends \Google_Client
                 return false;
             }
 
-            $this->saveCredentials($verification_code);
-
+            $access_token = $this->verifyCode($verification_code);
+            $this->saveCredentials($access_token);
 
         }
-        $this->setAccessToken($accessToken);
+
+        //Set access token
+        $this->setAccessToken($access_token);
 
         // Refresh the token if it's expired.
         if ($this->isAccessTokenExpired()) {
