@@ -10,11 +10,16 @@ class GoogleCalendarClient extends \Google_Client
     const CLIENT_SECRET_PATH = 'client_secret.json';
     const CLIENT_ACCESS_TYPE = 'offline';
     const CALENDAR_ID = '';
+    const TIME_ZONE = 'America/Mexico_City';
     private $google_client;
     private $scopes;
     private $error_message = '';
     private $app_message = '';
     private $google_service_calendar;
+    private $event_attribute_names = array('summary','location','description','start','end','attendees','reminders');
+    private $date_attribute_names = array('start','end');
+    private $event_attributes;
+    private $event_attributes_;
 
     function __construct()
     {
@@ -158,9 +163,41 @@ class GoogleCalendarClient extends \Google_Client
         return $events_array;
     }
 
-    public function addCalendarEvent()
+    public function addCalendarEvent($event_attributes)
     {
 
+        $this->discardEventAttributes();
+        $event = new Google_Service_Calendar_Event($this->event_attributes_);
+
+        $event = $this->google_service_calendar->events->insert(self::CALENDAR_ID, $event);
+        return $event;
+
+    }
+
+    private function discardEventAttributes()
+    {
+        $this->event_attributes_ = [];
+
+        foreach( $this->event_attributes as $attribute_name => $attribute_value )
+        {
+            if(in_array($attribute_name,$this->event_attribute_names)){
+                $this->event_attributes_[$attribute_name] = $this->setDateAttributes($attribute_name,$attribute_value);
+            }
+        }
+
+    }
+
+    private function setDateAttributes($attribute_name, $attribute_value)
+    {
+        if(in_array($attribute_name,$this->date_attribute_names))
+        {
+            return array(
+                'dateTime' => $attribute_value,
+                'timeZone' => self::TIME_ZONE,
+            );
+        }
+
+        return $attribute_value;
     }
 
 }
