@@ -191,7 +191,7 @@ class GoogleCalendarClient extends \Google_Client
 
         $this->event_attributes = $event_attributes;
         $this->discardEventAttributes();
-        $event = new Google_Service_Calendar_Event($this->event_attributes_);
+        $event = new \Google_Service_Calendar_Event($this->event_attributes_);
 
         $event = $this->google_service_calendar->events->insert(self::CALENDAR_ID, $event);
         return $event;
