@@ -147,7 +147,13 @@ class GoogleCalendarClient extends \Google_Client
             if (empty($end)) {
                 $end = $event->end->date;
             }
-            $events_array[] = ['start' => $start, 'end' => $end, 'summary' => $event->getSummary()];
+            $events_array[] = [ 'start' => $start,
+                                'end' => $end,
+                                'summary' => $event->getSummary(),
+                                'location' => $event->getLocation(),
+                                'description' => $event->getDescription(),
+                                'attendees' => $event->getAttendees(),
+            ];
         }
         return $events_array;
     }
