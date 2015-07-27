@@ -9,6 +9,7 @@ class GoogleCalendarClient extends \Google_Client
     const CREDENTIALS_PATH = './credentials/calendar-api-quickstart.json';
     const CLIENT_SECRET_PATH = 'client_secret.json';
     const CLIENT_ACCESS_TYPE = 'offline';
+    const CALENDAR_ID = '';
     private $google_client;
     private $scopes;
     private $error_message = '';
@@ -98,9 +99,23 @@ class GoogleCalendarClient extends \Google_Client
         return true;
     }
 
+    private function verifyCalendarId()
+    {
+        if(!empty(self::CALENDAR_ID))
+        {
+            return true;
+        }
+        $this->error_message = 'Calendar ID not set. Please set the CALENDAR_ID constant';
+        return false;
+    }
+
     public function getCalendarEvents()
     {
-
+        if(!$this->verifyCalendarId())
+        {
+            echo $this->getErrorMessage();
+            return false;
+        }
     }
 
     public function addCalendarEvent()
