@@ -163,9 +163,37 @@ class GoogleCalendarClient extends \Google_Client
         return $events_array;
     }
 
+    /**
+     * We add an event to the calendar. The array that we pass to the method should be like this:
+     * array(
+        'summary' => 'Event name',
+        'location' => 'Event address',
+        'description' => 'Event description',
+        'start' => array(
+                        'dateTime' => '2015-05-28T09:00:00'
+                    ),
+        'end' => array(
+                        'dateTime' => '2015-05-28T17:00:00-07:00'
+                    ),
+        'attendees' => array(
+                                array('email' => 'attendee1@example.com'),
+                                array('email' => 'attendee2@example.com'),
+        ),
+        'reminders' => array(
+            'useDefault' => FALSE,
+            'overrides' => array(
+                array('method' => 'email', 'minutes' => 24 * 60),
+                array('method' => 'popup', 'minutes' => 10),
+        ),
+        ),
+        )
+     * @param $event_attributes
+     * @return Google_Service_Calendar_Event
+     */
     public function addCalendarEvent($event_attributes)
     {
 
+        $this->event_attributes = $event_attributes;
         $this->discardEventAttributes();
         $event = new Google_Service_Calendar_Event($this->event_attributes_);
 
