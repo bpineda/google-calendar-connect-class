@@ -6,7 +6,7 @@ class GoogleCalendarClient extends \Google_Client
 {
 
     const APPLICATION_NAME = 'Google Calendar Class API Test';
-    const CREDENTIALS_PATH = './credentials/calendar-api-quickstart.json';
+    const CREDENTIALS_PATH = './credentials/calendar-api-access-token.json';
     const CLIENT_SECRET_PATH = 'client_secret.json';
     const CLIENT_ACCESS_TYPE = 'offline';
     const CALENDAR_ID = '';
