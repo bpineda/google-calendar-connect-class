@@ -101,7 +101,7 @@ class GoogleCalendarClient extends \Google_Client
 
     private function verifyCalendarId()
     {
-        if(!empty(self::CALENDAR_ID))
+        if('' != self::CALENDAR_ID)
         {
             return true;
         }
