@@ -29,7 +29,7 @@ class GoogleCalendarClient extends \Google_Client
          */
 
         $this->scopes = implode(' ', array( \Google_Service_Calendar::CALENDAR));
-        $this->google_service_calendar = new Google_Service_Calendar();
+        $this->google_service_calendar = new \Google_Service_Calendar($this);
     }
 
     public function config($verification_code = null)
